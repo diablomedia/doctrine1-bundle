@@ -41,11 +41,6 @@ parameters:
 			path: src/DependencyInjection/Configuration.php
 
 		-
-			message: "#^Parameter \\#2 \\$search of function array_key_exists expects array, array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 4
-			path: src/Twig/Doctrine1Extension.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
 			count: 1
 			path: src/Twig/Doctrine1Extension.php
