@@ -3,5 +3,10 @@ parameters:
     level: 8
     paths:
         - src
+    ignoreErrors:
+        -
+            message: "#^Parameter \\#2 \\$(search|array) of function array_key_exists expects array, array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+            count: 4
+            path: src/Twig/Doctrine1Extension.php
 includes:
-	- phpstan-baseline.neon
+    - phpstan-baseline.neon

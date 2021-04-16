@@ -102,13 +102,13 @@ class Doctrine1Extension extends AbstractExtension
             $html = SqlFormatter::highlight($sql);
             $html = preg_replace('/<pre class=".*">([^"]*+)<\/pre>/Us', '\1', $html);
             if ($html === null) {
-                throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+                throw new \RuntimeException('Error in preg_replace call');
             }
         } else {
             $html = SqlFormatter::format($sql);
             $html = preg_replace('/<pre class="(.*)">([^"]*+)<\/pre>/Us', '<div class="\1"><pre>\2</pre></div>', $html);
             if ($html === null) {
-                throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+                throw new \RuntimeException('Error in preg_replace call');
             }
         }
 
@@ -172,7 +172,7 @@ class Doctrine1Extension extends AbstractExtension
         );
 
         if ($query === null) {
-            throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+            throw new \RuntimeException('Error in preg_replace_callback call');
         }
 
         return $query;

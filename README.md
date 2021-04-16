@@ -1,6 +1,6 @@
 # Doctrine1 Bundle
 
-[![Build](https://github.com/diablomedia/zf1-acl/workflows/Build/badge.svg?event=push)](https://github.com/diablomedia/zf1-acl/actions?query=workflow%3ABuild+event%3Apush)
+[![Build](https://github.com/diablomedia/doctrine1-bundle/workflows/Build/badge.svg?event=push)](https://github.com/diablomedia/doctrine1-bundle/actions?query=workflow%3ABuild+event%3Apush)
 [![Latest Stable Version](https://poser.pugx.org/diablomedia/doctrine1-bundle/v/stable)](https://packagist.org/packages/diablomedia/doctrine1-bundle)
 [![Total Downloads](https://poser.pugx.org/diablomedia/doctrine1-bundle/downloads)](https://packagist.org/packages/diablomedia/doctrine1-bundle)
 [![License](https://poser.pugx.org/diablomedia/doctrine1-bundle/license)](https://packagist.org/packages/diablomedia/doctrine1-bundle)
