@@ -8,14 +8,14 @@ use Psr\Container\ContainerInterface;
 class Registry
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
      * @var array
      */
     private $connections;
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
     /**
      * @var string

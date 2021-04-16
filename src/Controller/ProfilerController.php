@@ -42,7 +42,7 @@ class ProfilerController implements ContainerAwareInterface
 
         /** @var \DiabloMedia\Bundle\Doctrine1Bundle\DataCollector\DoctrineDataCollector */
         $collector = $profile->getCollector('doctrine1');
-        $queries = $collector->getQueries();
+        $queries   = $collector->getQueries();
 
         if (! isset($queries[$connectionName][$query])) {
             return new Response('This query does not exist.');
@@ -54,7 +54,7 @@ class ProfilerController implements ContainerAwareInterface
         }
 
         /** @var Doctrine_Manager $manager */
-        $manager = $this->container->get('doctrine1');
+        $manager    = $this->container->get('doctrine1');
         $connection = $manager->getConnection($connectionName);
         try {
             /** @var string $platform */

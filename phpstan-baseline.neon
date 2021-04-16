@@ -1,0 +1,52 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$adapter of static method Doctrine_Manager\\:\\:connection\\(\\) expects Doctrine_Adapter_Interface\\|PDO\\|null, string given\\.$#"
+			count: 1
+			path: src/ConnectionFactory.php
+
+		-
+			message: "#^Call to an undefined method Doctrine_Adapter_Statement\\|PDOStatement\\:\\:fetchAll\\(\\)\\.$#"
+			count: 3
+			path: src/Controller/ProfilerController.php
+
+		-
+			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainOtherPlatform\\(\\) should return array but returns array\\|false\\.$#"
+			count: 1
+			path: src/Controller/ProfilerController.php
+
+		-
+			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainSQLServerPlatform\\(\\) should return array but returns array\\|false\\.$#"
+			count: 1
+			path: src/Controller/ProfilerController.php
+
+		-
+			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainSQLitePlatform\\(\\) should return array but returns array\\|false\\.$#"
+			count: 1
+			path: src/Controller/ProfilerController.php
+
+		-
+			message: "#^Result of method Doctrine_Connection\\:\\:getDriverName\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Controller/ProfilerController.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Cannot call method scalarNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Parameter \\#2 \\$search of function array_key_exists expects array, array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 4
+			path: src/Twig/Doctrine1Extension.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/Twig/Doctrine1Extension.php
+

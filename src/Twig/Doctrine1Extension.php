@@ -101,9 +101,15 @@ class Doctrine1Extension extends AbstractExtension
         if ($highlightOnly) {
             $html = SqlFormatter::highlight($sql);
             $html = preg_replace('/<pre class=".*">([^"]*+)<\/pre>/Us', '\1', $html);
+            if ($html === null) {
+                throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+            }
         } else {
             $html = SqlFormatter::format($sql);
             $html = preg_replace('/<pre class="(.*)">([^"]*+)<\/pre>/Us', '<div class="\1"><pre>\2</pre></div>', $html);
+            if ($html === null) {
+                throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+            }
         }
 
         return $html;
@@ -147,7 +153,7 @@ class Doctrine1Extension extends AbstractExtension
             $i = 1;
         }
 
-        return preg_replace_callback(
+        $query = preg_replace_callback(
             '/\?|((?<!:):[a-z0-9_]+)/i',
             static function (array $matches) use ($parameters, &$i): string {
                 $key = substr($matches[0], 1);
@@ -164,6 +170,12 @@ class Doctrine1Extension extends AbstractExtension
             },
             $query
         );
+
+        if ($query === null) {
+            throw new \RuntimeException('Error replacing: ' . preg_last_error_msg());
+        }
+
+        return $query;
     }
 
     /**

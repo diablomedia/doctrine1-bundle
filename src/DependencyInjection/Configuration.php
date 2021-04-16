@@ -105,7 +105,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('connections');
         /** @var ArrayNodeDefinition $node */
-        $node        = $treeBuilder->getRootNode();
+        $node = $treeBuilder->getRootNode();
 
         /** @var ArrayNodeDefinition $connectionNode */
         $connectionNode = $node
