@@ -6,12 +6,12 @@ use Doctrine_Manager;
 
 class ManagerFactory
 {
-    public function __invoke(Configuration $config = null, $connections, $defaultConnection, $service): Doctrine_Manager
-    {
-        if (!$config) {
-            throw new \Exception('Configuration is required');
-        }
-
+    public function __invoke(
+        Configuration $config,
+        array $connections,
+        string $defaultConnection,
+        \Symfony\Component\DependencyInjection\Container $service
+    ): Doctrine_Manager {
         $config = $config->getManagerConfig();
 
         $dm = Doctrine_Manager::getInstance();

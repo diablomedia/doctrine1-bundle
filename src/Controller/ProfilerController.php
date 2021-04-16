@@ -26,11 +26,20 @@ class ProfilerController implements ContainerAwareInterface
      */
     public function explainAction(string $token, string $connectionName, int $query): Response
     {
+        if (!$this->container) {
+            throw new \Exception('Container has not been configured');
+        }
+
         /** @var Profiler $profiler */
         $profiler = $this->container->get('profiler');
         $profiler->disable();
 
         $profile = $profiler->loadProfile($token);
+
+        if (!$profile) {
+            throw new \Exception('Could not load profile from token');
+        }
+
         /** @var \DiabloMedia\Bundle\Doctrine1Bundle\DataCollector\DoctrineDataCollector */
         $collector = $profile->getCollector('doctrine1');
         $queries = $collector->getQueries();
@@ -61,7 +70,10 @@ class ProfilerController implements ContainerAwareInterface
             return new Response('This query cannot be explained.');
         }
 
-        return new Response($this->container->get('twig')->render('@Doctrine1/Collector/explain.html.twig', [
+        /** @var \Twig\Environment */
+        $twig = $this->container->get('twig');
+
+        return new Response($twig->render('@Doctrine1/Collector/explain.html.twig', [
             'data'  => $results,
             'query' => $query,
         ]));
@@ -75,7 +87,7 @@ class ProfilerController implements ContainerAwareInterface
         $this->container = $container;
     }
 
-    private function explainOtherPlatform(Doctrine_Connection $connection, $query)
+    private function explainOtherPlatform(Doctrine_Connection $connection, array $query): array
     {
         $params = $query['params'];
 
@@ -90,7 +102,7 @@ class ProfilerController implements ContainerAwareInterface
     /**
      * @param mixed[] $query
      */
-    private function explainSQLitePlatform(Doctrine_Connection $connection, array $query)
+    private function explainSQLitePlatform(Doctrine_Connection $connection, array $query): array
     {
         $params = $query['params'];
 
@@ -102,7 +114,7 @@ class ProfilerController implements ContainerAwareInterface
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    private function explainSQLServerPlatform(Doctrine_Connection $connection, $query)
+    private function explainSQLServerPlatform(Doctrine_Connection $connection, array $query): array
     {
         if (stripos($query['sql'], 'SELECT') === 0) {
             $sql = 'SET STATISTICS PROFILE ON; ' . $query['sql'] . '; SET STATISTICS PROFILE OFF;';

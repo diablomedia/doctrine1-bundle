@@ -7,6 +7,20 @@ use Symfony\Component\VarDumper\Cloner\Data;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+use function addslashes;
+use function array_key_exists;
+use function bin2hex;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_object;
+use function is_string;
+use function method_exists;
+use function preg_match;
+use function preg_replace_callback;
+use function strtoupper;
+use function substr;
+
 /**
  * This class contains the needed functions in order to do the query highlighting
  */
@@ -53,6 +67,14 @@ class Doctrine1Extension extends AbstractExtension
             case is_bool($result):
                 $result = $result ? '1' : '0';
                 break;
+
+            case is_int($result):
+            case is_float($result):
+                $result = (string) $result;
+                break;
+
+            default:
+                throw new \Exception('Invalid parameter type: ' . gettype($result));
         }
 
         return $result;
@@ -111,7 +133,7 @@ class Doctrine1Extension extends AbstractExtension
     /**
      * Return a query with the parameters replaced
      *
-     * @param array|Data $parameters
+     * @param mixed[]|Data $parameters
      */
     public function replaceQueryParameters(string $query, $parameters): string
     {
@@ -121,16 +143,16 @@ class Doctrine1Extension extends AbstractExtension
 
         $i = 0;
 
-        if (! array_key_exists(0, $parameters) && array_key_exists(1, $parameters)) {
+        if (!array_key_exists(0, $parameters) && array_key_exists(1, $parameters)) {
             $i = 1;
         }
 
         return preg_replace_callback(
             '/\?|((?<!:):[a-z0-9_]+)/i',
-            static function ($matches) use ($parameters, &$i) {
+            static function (array $matches) use ($parameters, &$i): string {
                 $key = substr($matches[0], 1);
 
-                if (! array_key_exists($i, $parameters) && ($key === false || ! array_key_exists($key, $parameters))) {
+                if (!array_key_exists($i, $parameters) && ($key === false || !array_key_exists($key, $parameters))) {
                     return $matches[0];
                 }
 

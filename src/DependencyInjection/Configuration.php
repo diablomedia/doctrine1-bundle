@@ -27,10 +27,15 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->beforeNormalization()
-                ->ifTrue(static function ($v) {
-                    return is_array($v) && ! array_key_exists('connections', $v) && ! array_key_exists('connection', $v);
-                })
-                ->then(static function ($v) {
+                ->ifTrue(
+                    /**
+                     * @param mixed $v
+                     */
+                    static function ($v): bool {
+                        return is_array($v) && ! array_key_exists('connections', $v) && ! array_key_exists('connection', $v);
+                    }
+                )
+                ->then(static function (array $v): array {
                     // Key that should not be rewritten to the connection config
                     $excludedKeys = ['default_connection' => true, 'hydrators' => true];
                     $connection = [];
@@ -99,6 +104,7 @@ class Configuration implements ConfigurationInterface
     private function getConnectionsNode(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('connections');
+        /** @var ArrayNodeDefinition $node */
         $node        = $treeBuilder->getRootNode();
 
         /** @var ArrayNodeDefinition $connectionNode */

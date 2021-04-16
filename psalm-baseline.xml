@@ -3,4 +3,29 @@
   <file src="src/ConnectionFactory.php">
     <InvalidArgument occurrences="1"/>
   </file>
+  <file src="src/Controller/ProfilerController.php">
+    <PossiblyUndefinedMethod occurrences="3">
+      <code>fetchAll</code>
+      <code>fetchAll</code>
+      <code>fetchAll</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/DependencyInjection/Configuration.php">
+    <PossiblyNullReference occurrences="1">
+      <code>scalarNode</code>
+    </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="2">
+      <code>children</code>
+      <code>scalarNode</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/Twig/Doctrine1Extension.php">
+    <PossiblyInvalidArgument occurrences="5">
+      <code>$parameters</code>
+      <code>$parameters</code>
+      <code>$parameters</code>
+      <code>$parameters</code>
+      <code>$parameters</code>
+    </PossiblyInvalidArgument>
+  </file>
 </files>

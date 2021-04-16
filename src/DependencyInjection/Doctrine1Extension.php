@@ -12,7 +12,10 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class Doctrine1Extension extends Extension
 {
-    private $defaultConnection;
+    /**
+     * @var string
+     */
+    private $defaultConnection = '';
 
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
@@ -54,7 +57,7 @@ class Doctrine1Extension extends Extension
             ->addMethodCall('setManagerConfig', [$config['manager']]);
     }
 
-    public function loadConnection($name, array $connection, ContainerBuilder $container): void
+    public function loadConnection(string $name, array $connection, ContainerBuilder $container): void
     {
         $configuration = $container->setDefinition(
             sprintf('doctrine1.%s_connection.configuration', $name),
@@ -92,7 +95,7 @@ class Doctrine1Extension extends Extension
             ]);
     }
 
-    protected function getConnectionOptions($connection)
+    protected function getConnectionOptions(array $connection): array
     {
         $options = $connection;
 

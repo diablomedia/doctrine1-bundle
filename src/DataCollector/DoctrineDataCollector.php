@@ -11,10 +11,14 @@ use Throwable;
 use function array_map;
 use function array_sum;
 use function count;
+use function is_array;
 use function usort;
 
 class DoctrineDataCollector extends DataCollector
 {
+    /**
+     * @var string[]
+     */
     private $connections = [];
 
     /**
@@ -22,6 +26,9 @@ class DoctrineDataCollector extends DataCollector
      */
     private $groupedQueries;
 
+    /**
+     * @var array
+     */
     private $loggers = [];
 
     public function addLogger(string $name, Doctrine_Connection_Profiler $logger): void
@@ -50,12 +57,12 @@ class DoctrineDataCollector extends DataCollector
         $this->groupedQueries = null;
     }
 
-    public function getConnections()
+    public function getConnections(): array
     {
         return $this->data['connections'];
     }
 
-    public function getGroupedQueries()
+    public function getGroupedQueries(): array
     {
         if ($this->groupedQueries !== null) {
             return $this->groupedQueries;
@@ -77,7 +84,7 @@ class DoctrineDataCollector extends DataCollector
                 $connectionGroupedQueries[$key]['count']++;
                 $totalExecutionMS += $query['executionMS'];
             }
-            usort($connectionGroupedQueries, static function ($a, $b) {
+            usort($connectionGroupedQueries, static function (array $a, array $b): int {
                 if ($a['executionMS'] === $b['executionMS']) {
                     return 0;
                 }
@@ -96,7 +103,7 @@ class DoctrineDataCollector extends DataCollector
         return $this->groupedQueries;
     }
 
-    public function getGroupedQueryCount()
+    public function getGroupedQueryCount(): int
     {
         $count = 0;
         foreach ($this->getGroupedQueries() as $connectionGroupedQueries) {
@@ -106,21 +113,24 @@ class DoctrineDataCollector extends DataCollector
         return $count;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'doctrine1';
     }
 
-    public function getQueries()
+    public function getQueries(): array
     {
         return $this->data['queries'];
     }
 
-    public function getQueryCount()
+    public function getQueryCount(): int
     {
         return array_sum(array_map('count', $this->data['queries']));
     }
 
+    /**
+     * @return int|float
+     */
     public function getTime()
     {
         $time = 0;
@@ -146,6 +156,11 @@ class DoctrineDataCollector extends DataCollector
         }
     }
 
+    /**
+     * @param int|float $executionTimeMS
+     * @param int|float $totalExecutionTimeMS
+     * @return int|float
+     */
     private function executionTimePercentage($executionTimeMS, $totalExecutionTimeMS)
     {
         if ($totalExecutionTimeMS === 0.0 || $totalExecutionTimeMS === 0) {
@@ -161,6 +176,8 @@ class DoctrineDataCollector extends DataCollector
      * The return value is an array with the sanitized value and a boolean
      * indicating if the original value was kept (allowing to use the sanitized
      * value to explain the query).
+     *
+     * @param mixed $var
      */
     private function sanitizeParam($var, ?\Throwable $error): array
     {
@@ -168,7 +185,7 @@ class DoctrineDataCollector extends DataCollector
             return ['⚠ ' . $error->getMessage(), false, false];
         }
 
-        if (\is_array($var)) {
+        if (is_array($var)) {
             $a           = [];
             $explainable = $runnable = true;
             foreach ($var as $k => $v) {
@@ -214,7 +231,7 @@ class DoctrineDataCollector extends DataCollector
         if (null === $query['params']) {
             $query['params'] = [];
         }
-        if (!\is_array($query['params'])) {
+        if (!is_array($query['params'])) {
             $query['params'] = [$query['params']];
         }
         foreach ($query['params'] as $j => $param) {
