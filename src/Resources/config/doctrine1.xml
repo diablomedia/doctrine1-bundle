@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="doctrine1.connection_factory.class">DiabloMedia\Bundle\Doctrine1Bundle\ConnectionFactory</parameter>
+        <parameter key="doctrine1.manager_factory.class">DiabloMedia\Bundle\Doctrine1Bundle\ManagerFactory</parameter>
+        <parameter key="doctrine1.class">DiabloMedia\Bundle\Doctrine1Bundle\Registry</parameter>
+        <parameter key="doctrine1.configuration.class">DiabloMedia\Bundle\Doctrine1Bundle\Configuration</parameter>
+        <parameter key="doctrine1.data_collector.class">DiabloMedia\Bundle\Doctrine1Bundle\DataCollector\DoctrineDataCollector</parameter>
+        <parameter key="doctrine1.logger.profiling.class">Doctrine_Connection_Profiler</parameter>
+        <parameter key="doctrine1.manager.class">Doctrine_Manager</parameter>
+        <parameter key="doctrine1.connection.class">Doctrine_Connection</parameter>
+    </parameters>
+
+    <services>
+        <!-- <service id="Doctrine_Connection" alias="doctrine1_connection" public="false" /> -->
+        <service id="Doctrine_Manager" alias="doctrine1_manager" public="false" />
+
+        <service id="doctrine1.connection_factory" class="%doctrine1.connection_factory.class%" />
+        <service id="doctrine1.manager_factory" class="%doctrine1.manager_factory.class%" />
+
+        <service id="doctrine1.logger.profiling" class="%doctrine1.logger.profiling.class%" public="false" abstract="true" />
+
+        <!--<service id="doctrine1.manager" class="%doctrine1.manager.class%" abstract="false">
+            <factory service="doctrine1.manager_factory" method="setupManager" />
+            <argument type="service" id="doctrine1.manager.configuration" />
+        </service>-->
+
+        <service id="doctrine1.manager" class="%doctrine1.manager.class%">
+            <factory service="doctrine1.manager_factory" />
+            <argument type="service" id="doctrine1.manager.configuration" />
+            <argument>%doctrine1.connections%</argument>
+            <argument>%doctrine1.default_connection%</argument>
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="doctrine1.connection" class="%doctrine1.connection.class%" abstract="true">
+            <factory service="doctrine1.connection_factory" method="createConnection" />
+        </service>
+
+        <service id="data_collector.doctrine1" class="%doctrine1.data_collector.class%" public="false">
+            <tag name="data_collector" template="@Doctrine1/Collector/db.html.twig" id="doctrine1" priority="250" />
+            <argument type="service" id="doctrine1" />
+        </service>
+
+        <service id="doctrine1.connection.configuration" class="%doctrine1.configuration.class%" public="false" abstract="true" />
+        <service id="doctrine1.manager.configuration" class="%doctrine1.configuration.class%" public="false" abstract="false" />
+
+        <service id="doctrine1" class="%doctrine1.class%" public="true">
+            <argument type="service" id="service_container" />
+            <argument>%doctrine1.connections%</argument>
+            <argument>%doctrine1.default_connection%</argument>
+            <tag name="kernel.reset" method="reset" />
+        </service>
+
+        <service id="doctrine1.twig.doctrine_extension" class="DiabloMedia\Bundle\Doctrine1Bundle\Twig\Doctrine1Extension" public="false">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

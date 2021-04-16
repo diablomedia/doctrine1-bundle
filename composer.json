@@ -1,0 +1,59 @@
+{
+    "name": "diablomedia/doctrine1-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony Doctrine1Bundle",
+    "keywords": [
+        "ORM",
+        "Database",
+        "Persistence"
+    ],
+    "homepage": "http://github.com/diablomedia/doctrine1-bundle",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Jay Klehr",
+            "email": "jay@diablomedia.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1 || ^8.0",
+        "doctrine/doctrine1": "^1.2.0",
+        "jdorn/sql-formatter": "^1.2.16",
+        "symfony/cache": "^4.3.3|^5.0",
+        "symfony/config": "^4.3.3|^5.0",
+        "symfony/console": "^3.4.30|^4.3.3|^5.0",
+        "symfony/dependency-injection": "^4.3.3|^5.0",
+        "symfony/framework-bundle": "^3.4.30|^4.3.3|^5.0",
+        "symfony/service-contracts": "^1.1.1|^2.0"
+    },
+    "require-dev": {
+        "diablomedia/php-cs-fixer-config": "^2.0.0",
+        "phpunit/phpunit": "^8.5",
+        "symfony/phpunit-bridge": "^4.2",
+        "symfony/property-info": "^4.3.3|^5.0",
+        "symfony/proxy-manager-bridge": "^3.4|^4.3.3|^5.0",
+        "symfony/twig-bridge": "^3.4.30|^4.3.3|^5.0",
+        "symfony/validator": "^3.4.30|^4.3.3|^5.0",
+        "symfony/web-profiler-bundle": "^3.4.30|^4.3.3|^5.0",
+        "symfony/yaml": "^3.4.30|^4.3.3|^5.0",
+        "vimeo/psalm": "4.7.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "suggest": {
+        "symfony/web-profiler-bundle": "To use the data collector."
+    },
+    "autoload": {
+        "psr-4": {
+            "DiabloMedia\\Bundle\\Doctrine1Bundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "Tests/DependencyInjection"
+        }
+    },
+    "extra": {}
+}
