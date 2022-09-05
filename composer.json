@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "diablomedia/php-cs-fixer-config": "^2.0.0",
-        "phpstan/phpstan": "0.12.88",
+        "phpstan/phpstan": "1.8.4",
         "psalm/plugin-symfony": "^2.2.4",
         "symfony/property-info": "^4.3.3|^5.0",
         "symfony/proxy-manager-bridge": "^3.4|^4.3.3|^5.0",
