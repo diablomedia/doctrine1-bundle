@@ -156,7 +156,7 @@ class Doctrine1Extension extends AbstractExtension
             $i = 1;
         }
 
-        return preg_replace_callback(
+        return (string) preg_replace_callback(
             '/\?|((?<!:):[a-z0-9_]+)/i',
             static function (array $matches) use ($parameters, &$i): string {
                 $key = substr($matches[0], 1);
@@ -173,48 +173,6 @@ class Doctrine1Extension extends AbstractExtension
             },
             $query,
         );
-    }
-
-    /**
-     * Get the possible combinations of elements from the given array
-     */
-    private function getPossibleCombinations(array $elements, int $combinationsLevel): array
-    {
-        $baseCount = count($elements);
-        $result    = [];
-
-        if ($combinationsLevel === 1) {
-            foreach ($elements as $element) {
-                $result[] = [$element];
-            }
-
-            return $result;
-        }
-
-        $nextLevelElements = $this->getPossibleCombinations($elements, $combinationsLevel - 1);
-
-        foreach ($nextLevelElements as $nextLevelElement) {
-            $lastElement = $nextLevelElement[$combinationsLevel - 2];
-            $found       = false;
-
-            foreach ($elements as $key => $element) {
-                if ($element === $lastElement) {
-                    $found = true;
-                    continue;
-                }
-
-                if ($found !== true || $key >= $baseCount) {
-                    continue;
-                }
-
-                $tmp              = $nextLevelElement;
-                $newCombination   = array_slice($tmp, 0);
-                $newCombination[] = $element;
-                $result[]         = array_slice($newCombination, 0);
-            }
-        }
-
-        return $result;
     }
 
     private function setUpSqlFormatter(bool $highlight = true, bool $legacy = false): void

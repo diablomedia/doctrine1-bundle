@@ -11,21 +11,6 @@ parameters:
 			path: src/Controller/ProfilerController.php
 
 		-
-			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainOtherPlatform\\(\\) should return array but returns array\\|false\\.$#"
-			count: 1
-			path: src/Controller/ProfilerController.php
-
-		-
-			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainSQLServerPlatform\\(\\) should return array but returns array\\|false\\.$#"
-			count: 1
-			path: src/Controller/ProfilerController.php
-
-		-
-			message: "#^Method DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Controller\\\\ProfilerController\\:\\:explainSQLitePlatform\\(\\) should return array but returns array\\|false\\.$#"
-			count: 1
-			path: src/Controller/ProfilerController.php
-
-		-
 			message: "#^Result of method Doctrine_Connection\\:\\:getDriverName\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: src/Controller/ProfilerController.php
@@ -39,6 +24,21 @@ parameters:
 			message: "#^Cannot call method scalarNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
 			count: 1
 			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Property DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Registry\\:\\:\\$connections is never read, only written\\.$#"
+			count: 1
+			path: src/Registry.php
+
+		-
+			message: "#^Property DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Registry\\:\\:\\$defaultConnection is never read, only written\\.$#"
+			count: 1
+			path: src/Registry.php
+
+		-
+			message: "#^Cannot access offset string on array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/Twig/Doctrine1Extension.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.7.0@d4377c0baf3ffbf0b1ec6998e8d1be2a40971005">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/ConnectionFactory.php">
     <InvalidArgument occurrences="1"/>
   </file>
@@ -20,6 +20,12 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/Twig/Doctrine1Extension.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>$key === false</code>
+    </DocblockTypeContradiction>
+    <MissingConstructor occurrences="1">
+      <code>$sqlFormatter</code>
+    </MissingConstructor>
     <PossiblyInvalidArgument occurrences="5">
       <code>$parameters</code>
       <code>$parameters</code>

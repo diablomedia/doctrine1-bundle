@@ -7,6 +7,7 @@ use DiabloMedia\Bundle\Doctrine1Bundle\Registry;
 use Doctrine_Connection;
 use PDO;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Throwable;
@@ -39,6 +40,11 @@ class ProfilerController
         $this->profiler->disable();
 
         $profile   = $this->profiler->loadProfile($token);
+
+        if (!$profile) {
+            throw new NotFoundHttpException(sprintf('Token "%s" is not found.', $token));
+        }
+
         $collector = $profile->getCollector('doctrine1');
 
         assert($collector instanceof DoctrineDataCollector);
@@ -55,7 +61,6 @@ class ProfilerController
         }
 
         $connection = $this->registry->getConnection($connectionName);
-        assert($connection instanceof Doctrine_Connection);
         try {
             /** @var string $platform */
             $platform = $connection->getDriverName();
