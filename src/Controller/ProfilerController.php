@@ -39,7 +39,7 @@ class ProfilerController
     {
         $this->profiler->disable();
 
-        $profile   = $this->profiler->loadProfile($token);
+        $profile = $this->profiler->loadProfile($token);
 
         if (!$profile) {
             throw new NotFoundHttpException(sprintf('Token "%s" is not found.', $token));
