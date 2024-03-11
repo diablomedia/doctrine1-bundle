@@ -120,9 +120,9 @@
                     </div>
                 {% else %}
                     {% if group_queries %}
-                        <p><a href="{{ path('_profiler', { panel: 'db', token: token }) }}">Show all queries</a></p>
+                        <p><a href="{{ path('_profiler', { panel: 'doctrine1', token: token }) }}">Show all queries</a></p>
                     {% else %}
-                        <p><a href="{{ path('_profiler', { panel: 'db', token: token, group: true }) }}">Group similar statements</a></p>
+                        <p><a href="{{ path('_profiler', { panel: 'doctrine1', token: token, group: true }) }}">Group similar statements</a></p>
                     {% endif %}
 
                     {% for connection, queries in collector.queries %}
@@ -182,7 +182,7 @@
 
                                                 {% if query.explainable %}
                                                     &nbsp;&nbsp;
-                                                    <a class="link-inverse" href="{{ path('_profiler', { panel: 'db', token: token, page: 'explain', connection: connection, query: i }) }}" onclick="return explain(this);" data-target-id="explain-{{ i }}-{{ loop.parent.loop.index }}">Explain query</a>
+                                                    <a class="link-inverse" href="{{ path('_profiler', { panel: 'doctrine1', token: token, page: 'explain', connection: connection, query: i }) }}" onclick="return explain(this);" data-target-id="explain-{{ i }}-{{ loop.parent.loop.index }}">Explain query</a>
                                                 {% endif %}
 
                                                 {% if query.backtrace is defined %}
