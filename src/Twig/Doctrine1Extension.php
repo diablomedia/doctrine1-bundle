@@ -165,7 +165,7 @@ class Doctrine1Extension extends AbstractExtension
                     return $matches[0];
                 }
 
-                $value = array_key_exists($i, $parameters) ? $parameters[$i] : $parameters[$key];
+                $value  = array_key_exists($i, $parameters) ? $parameters[$i] : $parameters[$key];
                 $result = self::escapeFunction($value);
                 $i++;
 
