@@ -19,6 +19,11 @@
       <code>scalarNode</code>
     </PossiblyUndefinedMethod>
   </file>
+  <file src="src/DependencyInjection/Doctrine1Extension.php">
+    <UndefinedDocblockClass occurrences="1">
+      <code>$container-&gt;getParameter('kernel.debug')</code>
+    </UndefinedDocblockClass>
+  </file>
   <file src="src/Twig/Doctrine1Extension.php">
     <DocblockTypeContradiction occurrences="1">
       <code>$key === false</code>
