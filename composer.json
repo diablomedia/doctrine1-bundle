@@ -28,6 +28,7 @@
     },
     "require-dev": {
         "diablomedia/php-cs-fixer-config": "2.1.0",
+        "friendsofphp/php-cs-fixer": "^3.4.0",
         "phpstan/phpstan": "1.10.60",
         "psalm/plugin-symfony": "^2.2.4",
         "symfony/property-info": "^4.3.3|^5.0",
