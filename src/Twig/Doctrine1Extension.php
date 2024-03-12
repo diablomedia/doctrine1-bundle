@@ -2,7 +2,9 @@
 
 namespace DiabloMedia\Bundle\Doctrine1Bundle\Twig;
 
-use SqlFormatter;
+use Doctrine\SqlFormatter\HtmlHighlighter;
+use Doctrine\SqlFormatter\NullHighlighter;
+use Doctrine\SqlFormatter\SqlFormatter;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -26,6 +28,8 @@ use function substr;
  */
 class Doctrine1Extension extends AbstractExtension
 {
+    private SqlFormatter $sqlFormatter;
+
     /**
      * Escape parameters of a SQL query
      * DON'T USE THIS FUNCTION OUTSIDE ITS INTENDED SCOPE
@@ -53,11 +57,11 @@ class Doctrine1Extension extends AbstractExtension
                     $value = static::escapeFunction($value);
                 }
 
-                $result = implode(', ', $result);
+                $result = implode(', ', $result) ?: 'NULL';
                 break;
 
             case is_object($result) && method_exists($result, '__toString'):
-                $result = addslashes((string) $result);
+                $result = addslashes($result->__toString());
                 break;
 
             case $result === null:
@@ -67,14 +71,6 @@ class Doctrine1Extension extends AbstractExtension
             case is_bool($result):
                 $result = $result ? '1' : '0';
                 break;
-
-            case is_int($result):
-            case is_float($result):
-                $result = (string) $result;
-                break;
-
-            default:
-                throw new \Exception('Invalid parameter type: ' . gettype($result));
         }
 
         return $result;
@@ -87,32 +83,30 @@ class Doctrine1Extension extends AbstractExtension
      */
     public function formatQuery(string $sql, bool $highlightOnly = false): string
     {
-        SqlFormatter::$pre_attributes            = 'class="highlight highlight-sql"';
-        SqlFormatter::$quote_attributes          = 'class="string"';
-        SqlFormatter::$backtick_quote_attributes = 'class="string"';
-        SqlFormatter::$reserved_attributes       = 'class="keyword"';
-        SqlFormatter::$boundary_attributes       = 'class="symbol"';
-        SqlFormatter::$number_attributes         = 'class="number"';
-        SqlFormatter::$word_attributes           = 'class="word"';
-        SqlFormatter::$error_attributes          = 'class="error"';
-        SqlFormatter::$comment_attributes        = 'class="comment"';
-        SqlFormatter::$variable_attributes       = 'class="variable"';
+        trigger_deprecation(
+            'doctrine/doctrine-bundle',
+            '2.1',
+            'The "%s()" method is deprecated and will be removed in doctrine-bundle 3.0.',
+            __METHOD__,
+        );
+
+        $this->setUpSqlFormatter(true, true);
 
         if ($highlightOnly) {
-            $html = SqlFormatter::highlight($sql);
-            $html = preg_replace('/<pre class=".*">([^"]*+)<\/pre>/Us', '\1', $html);
-            if ($html === null) {
-                throw new \RuntimeException('Error in preg_replace call');
-            }
-        } else {
-            $html = SqlFormatter::format($sql);
-            $html = preg_replace('/<pre class="(.*)">([^"]*+)<\/pre>/Us', '<div class="\1"><pre>\2</pre></div>', $html);
-            if ($html === null) {
-                throw new \RuntimeException('Error in preg_replace call');
-            }
+            return $this->sqlFormatter->highlight($sql);
         }
 
-        return $html;
+        return sprintf(
+            '<div class="highlight highlight-sql"><pre>%s</pre></div>',
+            $this->sqlFormatter->format($sql),
+        );
+    }
+
+    public function formatSql(string $sql, bool $highlight): string
+    {
+        $this->setUpSqlFormatter($highlight);
+
+        return $this->sqlFormatter->format($sql);
     }
 
     /**
@@ -123,7 +117,9 @@ class Doctrine1Extension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('doctrine1_pretty_query', [$this, 'formatQuery'], ['is_safe' => ['html']]),
+            new TwigFilter('doctrine1_pretty_query', [$this, 'formatQuery'], ['is_safe' => ['html'], 'deprecated' => true]),
+            new TwigFilter('doctrine1_prettify_sql', [$this, 'prettifySql'], ['is_safe' => ['html']]),
+            new TwigFilter('doctrine1_format_sql', [$this, 'formatSql'], ['is_safe' => ['html']]),
             new TwigFilter('doctrine1_replace_query_parameters', [$this, 'replaceQueryParameters']),
         ];
     }
@@ -134,6 +130,13 @@ class Doctrine1Extension extends AbstractExtension
     public function getName(): string
     {
         return 'doctrine1_extension';
+    }
+
+    public function prettifySql(string $sql): string
+    {
+        $this->setUpSqlFormatter();
+
+        return $this->sqlFormatter->highlight($sql);
     }
 
     /**
@@ -153,7 +156,7 @@ class Doctrine1Extension extends AbstractExtension
             $i = 1;
         }
 
-        $query = preg_replace_callback(
+        return (string) preg_replace_callback(
             '/\?|((?<!:):[a-z0-9_]+)/i',
             static function (array $matches) use ($parameters, &$i): string {
                 $key = substr($matches[0], 1);
@@ -162,61 +165,29 @@ class Doctrine1Extension extends AbstractExtension
                     return $matches[0];
                 }
 
-                $value = array_key_exists($i, $parameters) ? $parameters[$i] : $parameters[$key];
+                $value  = array_key_exists($i, $parameters) ? $parameters[$i] : $parameters[$key];
                 $result = self::escapeFunction($value);
                 $i++;
 
                 return $result;
             },
-            $query
+            $query,
         );
-
-        if ($query === null) {
-            throw new \RuntimeException('Error in preg_replace_callback call');
-        }
-
-        return $query;
     }
 
-    /**
-     * Get the possible combinations of elements from the given array
-     */
-    private function getPossibleCombinations(array $elements, int $combinationsLevel): array
+    private function setUpSqlFormatter(bool $highlight = true, bool $legacy = false): void
     {
-        $baseCount = count($elements);
-        $result    = [];
-
-        if ($combinationsLevel === 1) {
-            foreach ($elements as $element) {
-                $result[] = [$element];
-            }
-
-            return $result;
-        }
-
-        $nextLevelElements = $this->getPossibleCombinations($elements, $combinationsLevel - 1);
-
-        foreach ($nextLevelElements as $nextLevelElement) {
-            $lastElement = $nextLevelElement[$combinationsLevel - 2];
-            $found       = false;
-
-            foreach ($elements as $key => $element) {
-                if ($element === $lastElement) {
-                    $found = true;
-                    continue;
-                }
-
-                if ($found !== true || $key >= $baseCount) {
-                    continue;
-                }
-
-                $tmp              = $nextLevelElement;
-                $newCombination   = array_slice($tmp, 0);
-                $newCombination[] = $element;
-                $result[]         = array_slice($newCombination, 0);
-            }
-        }
-
-        return $result;
+        $this->sqlFormatter = new SqlFormatter($highlight ? new HtmlHighlighter([
+            HtmlHighlighter::HIGHLIGHT_PRE            => 'class="highlight highlight-sql"',
+            HtmlHighlighter::HIGHLIGHT_QUOTE          => 'class="string"',
+            HtmlHighlighter::HIGHLIGHT_BACKTICK_QUOTE => 'class="string"',
+            HtmlHighlighter::HIGHLIGHT_RESERVED       => 'class="keyword"',
+            HtmlHighlighter::HIGHLIGHT_BOUNDARY       => 'class="symbol"',
+            HtmlHighlighter::HIGHLIGHT_NUMBER         => 'class="number"',
+            HtmlHighlighter::HIGHLIGHT_WORD           => 'class="word"',
+            HtmlHighlighter::HIGHLIGHT_ERROR          => 'class="error"',
+            HtmlHighlighter::HIGHLIGHT_COMMENT        => 'class="comment"',
+            HtmlHighlighter::HIGHLIGHT_VARIABLE       => 'class="variable"',
+        ], ! $legacy) : new NullHighlighter());
     }
 }

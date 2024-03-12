@@ -2,20 +2,31 @@
 
 namespace DiabloMedia\Bundle\Doctrine1Bundle\Controller;
 
+use DiabloMedia\Bundle\Doctrine1Bundle\DataCollector\DoctrineDataCollector;
+use DiabloMedia\Bundle\Doctrine1Bundle\Registry;
 use Doctrine_Connection;
-use Doctrine_Manager;
-use Exception;
 use PDO;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Throwable;
+use Twig\Environment;
 
-class ProfilerController implements ContainerAwareInterface
+class ProfilerController
 {
-    /** @var ContainerInterface|null */
-    private $container;
+    private Profiler $profiler;
+
+    private Registry $registry;
+
+    private Environment $twig;
+
+    public function __construct(Environment $twig, Registry $registry, Profiler $profiler)
+    {
+        $this->twig     = $twig;
+        $this->registry = $registry;
+        $this->profiler = $profiler;
+    }
 
     /**
      * Renders the profiler panel for the given token.
@@ -26,23 +37,19 @@ class ProfilerController implements ContainerAwareInterface
      */
     public function explainAction(string $token, string $connectionName, int $query): Response
     {
-        if (!$this->container) {
-            throw new \Exception('Container has not been configured');
-        }
+        $this->profiler->disable();
 
-        /** @var Profiler $profiler */
-        $profiler = $this->container->get('profiler');
-        $profiler->disable();
-
-        $profile = $profiler->loadProfile($token);
+        $profile = $this->profiler->loadProfile($token);
 
         if (!$profile) {
-            throw new \Exception('Could not load profile from token');
+            throw new NotFoundHttpException(sprintf('Token "%s" is not found.', $token));
         }
 
-        /** @var \DiabloMedia\Bundle\Doctrine1Bundle\DataCollector\DoctrineDataCollector */
         $collector = $profile->getCollector('doctrine1');
-        $queries   = $collector->getQueries();
+
+        assert($collector instanceof DoctrineDataCollector);
+
+        $queries = $collector->getQueries();
 
         if (! isset($queries[$connectionName][$query])) {
             return new Response('This query does not exist.');
@@ -53,9 +60,7 @@ class ProfilerController implements ContainerAwareInterface
             return new Response('This query cannot be explained.');
         }
 
-        /** @var Doctrine_Manager $manager */
-        $manager    = $this->container->get('doctrine1');
-        $connection = $manager->getConnection($connectionName);
+        $connection = $this->registry->getConnection($connectionName);
         try {
             /** @var string $platform */
             $platform = $connection->getDriverName();
@@ -66,25 +71,14 @@ class ProfilerController implements ContainerAwareInterface
             } else {
                 $results = $this->explainOtherPlatform($connection, $query);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return new Response('This query cannot be explained.');
         }
 
-        /** @var \Twig\Environment */
-        $twig = $this->container->get('twig');
-
-        return new Response($twig->render('@Doctrine1/Collector/explain.html.twig', [
+        return new Response($this->twig->render('@Doctrine1/Collector/explain.html.twig', [
             'data'  => $results,
             'query' => $query,
         ]));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setContainer(ContainerInterface $container = null): void
-    {
-        $this->container = $container;
     }
 
     private function explainOtherPlatform(Doctrine_Connection $connection, array $query): array

@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
         $this->debug = $debug;
     }
 
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('doctrine1');
         /** @var ArrayNodeDefinition $rootNode */
@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
                 ->then(static function (array $v): array {
                     // Key that should not be rewritten to the connection config
                     $excludedKeys = ['default_connection' => true, 'hydrators' => true];
-                    $connection = [];
+                    $connection   = [];
                     foreach ($v as $key => $value) {
                         if (isset($excludedKeys[$key])) {
                             continue;
@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                         unset($v[$key]);
                     }
                     $v['default_connection'] = isset($v['default_connection']) ? (string) $v['default_connection'] : 'default';
-                    $v['connections'] = [$v['default_connection'] => $connection];
+                    $v['connections']        = [$v['default_connection'] => $connection];
 
                     return $v;
                 })

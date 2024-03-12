@@ -1,45 +1,45 @@
 name: Build
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
-    build:
-        name: PHP ${{ matrix.php-versions }} ${{ matrix.composer-args }}
-        strategy:
-            fail-fast: false
-            matrix:
-                operating-system: [ubuntu-latest]
-                php-versions: ['7.2', '7.3', '7.4', '8.0']
-                composer-args: ['']
-        runs-on: ${{ matrix.operating-system }}
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2.3.4
-            - name: Setup PHP
-              uses: shivammathur/setup-php@2.11.0
-              with:
-                  php-version: ${{ matrix.php-versions }}
-                  extensions: mbstring
-                  tools: cs2pr
-            - name: Get composer cache directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-            - name: Cache dependencies
-              uses: actions/cache@v2.1.5
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: php${{ matrix.php-versions }}-composer-${{ matrix.composer-args }}-${{ hashFiles('**/composer.json') }}
-                  restore-keys: php${{ matrix.php-versions }}-composer-${{ matrix.composer-args }}-
-            - name: Install Dependencies
-              run: |
-                  composer update --no-progress --no-suggest --prefer-stable --optimize-autoloader ${{ matrix.composer-args }}
-            - name: PHPStan
-              run: composer phpstan
-            - name: Psalm
-              run: composer psalm
-            - name: Code Style Check
-              run: composer style-check -- --format=checkstyle | cs2pr
+  build:
+    name: PHP ${{ matrix.php-versions }} ${{ matrix.composer-args }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ["8.1", "8.2"]
+        composer-args: ["", "--prefer-lowest"]
+    runs-on: ${{ matrix.operating-system }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.24.0
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring
+          tools: cs2pr
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v3.2.6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php${{ matrix.php-versions }}-composer-${{ matrix.composer-args }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: php${{ matrix.php-versions }}-composer-${{ matrix.composer-args }}-
+      - name: Install Dependencies
+        run: |
+          composer update --no-progress --no-suggest --prefer-stable --optimize-autoloader ${{ matrix.composer-args }}
+      - name: PHPStan
+        run: composer phpstan
+      - name: Psalm
+        run: composer psalm
+      - name: Code Style Check
+        run: composer style-check -- --format=checkstyle | cs2pr
