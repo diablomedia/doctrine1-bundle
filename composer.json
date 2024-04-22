@@ -29,7 +29,7 @@
     "require-dev": {
         "diablomedia/php-cs-fixer-config": "^2.1.0",
         "friendsofphp/php-cs-fixer": "^3.20.0",
-        "phpstan/phpstan": "1.10.60",
+        "phpstan/phpstan": "1.10.67",
         "psalm/plugin-symfony": "^2.2.4",
         "symfony/property-info": "^4.3.3|^5.0",
         "symfony/proxy-manager-bridge": "^5.4 || ^6.0 || ^7.0",
