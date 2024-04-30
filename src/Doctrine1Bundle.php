@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class Doctrine1Bundle extends Bundle
 {
-    /** @return void */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
