@@ -26,11 +26,6 @@ parameters:
 			path: src/DependencyInjection/Configuration.php
 
 		-
-			message: "#^Property DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Registry\\:\\:\\$connections is never read, only written\\.$#"
-			count: 1
-			path: src/Registry.php
-
-		-
 			message: "#^Property DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Registry\\:\\:\\$defaultConnection is never read, only written\\.$#"
 			count: 1
 			path: src/Registry.php

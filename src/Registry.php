@@ -41,8 +41,10 @@ class Registry
         foreach ($this->connections as $connectionName) {
             // Connection names come in as "doctrine1.name_connection", we want "name"
             $connectionName = preg_replace('|_connection$|', '', substr($connectionName, 10));
-            $connection     = $manager->getConnection($connectionName);
-            $connection->clear();
+            if ($connectionName !== null) {
+                $connection = $manager->getConnection($connectionName);
+                $connection->clear();
+            }
         }
     }
 }
