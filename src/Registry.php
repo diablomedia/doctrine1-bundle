@@ -3,6 +3,7 @@
 namespace DiabloMedia\Bundle\Doctrine1Bundle;
 
 use Doctrine_Connection;
+use Doctrine_Manager;
 use Psr\Container\ContainerInterface;
 
 class Registry
@@ -36,7 +37,11 @@ class Registry
 
     public function reset(): void
     {
-        foreach ($this->connections as $connection) {
+        $manager = Doctrine_Manager::getInstance();
+        foreach ($this->connections as $connectionName) {
+            // Connection names come in as "doctrine1.name_connection", we want "name"
+            $connectionName = preg_replace('|_connection$|', '', substr($connectionName, 10));
+            $connection     = $manager->getConnection($connectionName);
             $connection->clear();
         }
     }
