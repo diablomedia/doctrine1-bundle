@@ -30,7 +30,7 @@
         "diablomedia/php-cs-fixer-config": "^2.1.0",
         "friendsofphp/php-cs-fixer": "^3.20.0",
         "phpstan/phpstan": "1.11.1",
-        "psalm/plugin-symfony": "^2.2.4",
+        "psalm/plugin-symfony": "^4.0.4",
         "symfony/property-info": "^4.3.3 || ^5.0 || ^6.0 || ^7.0",
         "symfony/proxy-manager-bridge": "^5.4 || ^6.0 || ^7.0",
         "symfony/twig-bridge": "^5.4 || ^6.0 || ^7.0",
