@@ -33,4 +33,11 @@ class Registry
     {
         return $this->container->get('doctrine1.' . $name . '_connection');
     }
+
+    public function reset(): void
+    {
+        foreach ($this->connections as $connection) {
+            $connection->clear();
+        }
+    }
 }
