@@ -198,7 +198,7 @@
 
                                             {% if query.runnable %}
                                                 <div id="original-query-{{ i }}-{{ loop.parent.loop.index }}" class="sql-runnable hidden">
-                                                    {% set runnable_sql = (query.sql ~ ';')|doctrine_replace_query_parameters(query.params) %}
+                                                    {% set runnable_sql = (query.sql ~ ';')|doctrine1_replace_query_parameters(query.params) %}
                                                     {{ runnable_sql|doctrine1_prettify_sql }}
                                                     <button class="btn btn-sm hidden" data-clipboard-text="{{ runnable_sql|e('html_attr') }}">Copy</button>
                                                 </div>
