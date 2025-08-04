@@ -192,8 +192,8 @@
                                             </div>
 
                                             <div id="formatted-query-{{ i }}-{{ loop.parent.loop.index }}" class="sql-runnable hidden">
-                                                {{ query.sql|doctrine_format_sql(highlight = true) }}
-                                                <button class="btn btn-sm hidden" data-clipboard-text="{{ query.sql|doctrine_format_sql(highlight = false)|e('html_attr') }}">Copy</button>
+                                                {{ query.sql|doctrine1_format_sql(highlight = true) }}
+                                                <button class="btn btn-sm hidden" data-clipboard-text="{{ query.sql|doctrine1_format_sql(highlight = false)|e('html_attr') }}">Copy</button>
                                             </div>
 
                                             {% if query.runnable %}
