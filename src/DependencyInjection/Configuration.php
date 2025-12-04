@@ -31,9 +31,7 @@ class Configuration implements ConfigurationInterface
                     /**
                      * @param mixed $v
                      */
-                    static function ($v): bool {
-                        return is_array($v) && ! array_key_exists('connections', $v) && ! array_key_exists('connection', $v);
-                    }
+                    static fn ($v): bool => is_array($v) && ! array_key_exists('connections', $v) && ! array_key_exists('connection', $v)
                 )
                 ->then(static function (array $v): array {
                     // Key that should not be rewritten to the connection config
