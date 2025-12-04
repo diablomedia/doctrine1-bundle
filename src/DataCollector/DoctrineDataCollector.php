@@ -17,12 +17,12 @@ use function usort;
 class DoctrineDataCollector extends DataCollector
 {
     /**
-     * @var string[]
+     * @var array<string>
      */
     private $connections = [];
 
     /**
-     * @var mixed[][]|null
+     * @var array<array<mixed>>|null
      */
     private $groupedQueries;
 

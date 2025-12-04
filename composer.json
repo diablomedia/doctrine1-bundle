@@ -27,8 +27,7 @@
         "symfony/service-contracts": "^1.1.1 || ^2.0 || ^3.0"
     },
     "require-dev": {
-        "diablomedia/php-cs-fixer-config": "^3.0.0",
-        "friendsofphp/php-cs-fixer": "^3.59.3",
+        "diablomedia/php-cs-fixer-config": "^4.0.0",
         "phpstan/phpstan": "1.11.11",
         "psalm/plugin-symfony": "^5.0.0",
         "symfony/property-info": "^4.3.3 || ^5.0 || ^6.0 || ^7.0",

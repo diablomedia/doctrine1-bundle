@@ -94,7 +94,7 @@ class ProfilerController
     }
 
     /**
-     * @param mixed[] $query
+     * @param array<mixed> $query
      */
     private function explainSQLitePlatform(Doctrine_Connection $connection, array $query): array
     {
