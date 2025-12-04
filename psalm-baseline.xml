@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
   <file src="src/ConnectionFactory.php">
-    <InvalidArgument occurrences="1"/>
+    <InvalidArgument>
+      <code><![CDATA[$params['system'] . '://' . urlencode($params['user']) . ':'
+                . urlencode($params['password']) . '@'
+                . $params['host'] . ':'
+                . $params['port'] . '/'
+                . $params['database']
+                . '?charset=' . urlencode($params['charset'])]]></code>
+    </InvalidArgument>
   </file>
   <file src="src/Controller/ProfilerController.php">
-    <PossiblyUndefinedMethod occurrences="3">
-      <code>fetchAll</code>
-      <code>fetchAll</code>
-      <code>fetchAll</code>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[fetchAll]]></code>
+      <code><![CDATA[fetchAll]]></code>
+      <code><![CDATA[fetchAll]]></code>
     </PossiblyUndefinedMethod>
   </file>
-  <file src="src/DependencyInjection/Configuration.php">
-    <PossiblyNullReference occurrences="1">
-      <code>scalarNode</code>
-    </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="2">
-      <code>children</code>
-      <code>scalarNode</code>
-    </PossiblyUndefinedMethod>
+  <file src="src/DataCollector/DoctrineDataCollector.php">
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$query['params']]]></code>
+    </PossiblyUndefinedArrayOffset>
   </file>
   <file src="src/DependencyInjection/Doctrine1Extension.php">
-    <UndefinedDocblockClass occurrences="1">
-      <code>$container-&gt;getParameter('kernel.debug')</code>
-    </UndefinedDocblockClass>
+    <DeprecatedClass>
+      <code><![CDATA[new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'))]]></code>
+    </DeprecatedClass>
+    <InvalidArrayOffset>
+      <code><![CDATA[$connections[$name]]]></code>
+    </InvalidArrayOffset>
   </file>
   <file src="src/Twig/Doctrine1Extension.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$key === false</code>
+    <DocblockTypeContradiction>
+      <code><![CDATA[$key === false]]></code>
     </DocblockTypeContradiction>
-    <MissingConstructor occurrences="1">
-      <code>$sqlFormatter</code>
+    <MissingConstructor>
+      <code><![CDATA[$sqlFormatter]]></code>
     </MissingConstructor>
-    <PossiblyInvalidArgument occurrences="5">
-      <code>$parameters</code>
-      <code>$parameters</code>
-      <code>$parameters</code>
-      <code>$parameters</code>
-      <code>$parameters</code>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$parameters]]></code>
+      <code><![CDATA[$parameters]]></code>
+      <code><![CDATA[$parameters]]></code>
+      <code><![CDATA[$parameters]]></code>
+      <code><![CDATA[$parameters]]></code>
     </PossiblyInvalidArgument>
   </file>
 </files>
