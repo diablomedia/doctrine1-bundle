@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+  <file src="src/Configuration.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Configuration]]></code>
+    </ClassMustBeFinal>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setManagerConfig]]></code>
+      <code><![CDATA[setSQLLogger]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/ConnectionFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ConnectionFactory]]></code>
+    </ClassMustBeFinal>
     <InvalidArgument>
       <code><![CDATA[$params['system'] . '://' . urlencode($params['user']) . ':'
                 . urlencode($params['password']) . '@'
@@ -9,34 +21,134 @@
                 . $params['database']
                 . '?charset=' . urlencode($params['charset'])]]></code>
     </InvalidArgument>
+    <UnusedClass>
+      <code><![CDATA[ConnectionFactory]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Controller/ProfilerController.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ProfilerController]]></code>
+    </ClassMustBeFinal>
     <PossiblyUndefinedMethod>
       <code><![CDATA[fetchAll]]></code>
       <code><![CDATA[fetchAll]]></code>
       <code><![CDATA[fetchAll]]></code>
     </PossiblyUndefinedMethod>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[explainAction]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/DataCollector/DoctrineDataCollector.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[DoctrineDataCollector]]></code>
+    </ClassMustBeFinal>
+    <InvalidOperand>
+      <code><![CDATA[$executionTimeMS / $totalExecutionTimeMS]]></code>
+    </InvalidOperand>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function collect(Request $request, Response $response, Throwable $exception = null): void]]></code>
+      <code><![CDATA[public function getName(): string]]></code>
+      <code><![CDATA[public function reset(): void]]></code>
+    </MissingOverrideAttribute>
     <PossiblyUndefinedArrayOffset>
       <code><![CDATA[$query['params']]]></code>
     </PossiblyUndefinedArrayOffset>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[addLogger]]></code>
+      <code><![CDATA[getConnections]]></code>
+      <code><![CDATA[getGroupedQueryCount]]></code>
+      <code><![CDATA[getQueryCount]]></code>
+      <code><![CDATA[getTime]]></code>
+    </PossiblyUnusedMethod>
+    <UnusedVariable>
+      <code><![CDATA[$j]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/DependencyInjection/Compiler/RemoveProfilerControllerPass.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function process(ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/DependencyInjection/Configuration.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Configuration]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getConfigTreeBuilder(): TreeBuilder]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyNullReference>
+      <code><![CDATA[scalarNode]]></code>
+    </PossiblyNullReference>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[scalarNode]]></code>
+    </UndefinedInterfaceMethod>
+    <UndefinedMethod>
+      <code><![CDATA[children]]></code>
+    </UndefinedMethod>
+    <UnusedForeachValue>
+      <code><![CDATA[$value]]></code>
+    </UnusedForeachValue>
   </file>
   <file src="src/DependencyInjection/Doctrine1Extension.php">
-    <DeprecatedClass>
-      <code><![CDATA[new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'))]]></code>
-    </DeprecatedClass>
+    <ClassMustBeFinal>
+      <code><![CDATA[Doctrine1Extension]]></code>
+    </ClassMustBeFinal>
     <InvalidArrayOffset>
       <code><![CDATA[$connections[$name]]]></code>
     </InvalidArrayOffset>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getConfiguration(array $config, ContainerBuilder $container): Configuration]]></code>
+      <code><![CDATA[public function load(array $configs, ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[Doctrine1Extension]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Doctrine1Bundle.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Doctrine1Bundle]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function build(ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[Doctrine1Bundle]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/ManagerFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[ManagerFactory]]></code>
+    </ClassMustBeFinal>
+    <UnusedClass>
+      <code><![CDATA[ManagerFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Registry.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Registry]]></code>
+    </ClassMustBeFinal>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[reset]]></code>
+    </PossiblyUnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$defaultConnection]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Twig/Doctrine1Extension.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Doctrine1Extension]]></code>
+    </ClassMustBeFinal>
     <DocblockTypeContradiction>
       <code><![CDATA[$key === false]]></code>
     </DocblockTypeContradiction>
     <MissingConstructor>
       <code><![CDATA[$sqlFormatter]]></code>
     </MissingConstructor>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getFilters(): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyInvalidArgument>
       <code><![CDATA[$parameters]]></code>
       <code><![CDATA[$parameters]]></code>
@@ -44,5 +156,8 @@
       <code><![CDATA[$parameters]]></code>
       <code><![CDATA[$parameters]]></code>
     </PossiblyInvalidArgument>
+    <UnusedClass>
+      <code><![CDATA[Doctrine1Extension]]></code>
+    </UnusedClass>
   </file>
 </files>
