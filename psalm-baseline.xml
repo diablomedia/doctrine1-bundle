@@ -89,11 +89,18 @@
     <UnusedForeachValue>
       <code><![CDATA[$value]]></code>
     </UnusedForeachValue>
+    <UnusedMethodCall>
+      <code><![CDATA[end]]></code>
+      <code><![CDATA[end]]></code>
+    </UnusedMethodCall>
   </file>
   <file src="src/DependencyInjection/Doctrine1Extension.php">
     <ClassMustBeFinal>
       <code><![CDATA[Doctrine1Extension]]></code>
     </ClassMustBeFinal>
+    <DeprecatedClass>
+      <code><![CDATA[new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'))]]></code>
+    </DeprecatedClass>
     <InvalidArrayOffset>
       <code><![CDATA[$connections[$name]]]></code>
     </InvalidArrayOffset>
