@@ -1,9 +1,13 @@
 parameters:
-    checkMissingIterableValueType: false
     level: 8
     paths:
         - src
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: missingType.generics
         -
             message: "#^Parameter \\#2 \\$(search|array) of function array_key_exists expects array, array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null given\\.$#"
             count: 5
