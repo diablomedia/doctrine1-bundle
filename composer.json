@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "~8.1 || ~8.2",
+        "php": "~8.1 || ~8.2 || ~8.3 || ~8.4",
         "doctrine/doctrine1": "^1.2.0",
         "doctrine/sql-formatter": "^1.0.1",
         "symfony/cache": "^5.4 || ^6.0 || ^7.0",
@@ -24,7 +24,7 @@
         "symfony/console": "^5.4 || ^6.0 || ^7.0",
         "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
         "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/service-contracts": "^1.1.1 || ^2.0 || 3.0"
+        "symfony/service-contracts": "^1.1.1 || ^2.0 || ^3.0"
     },
     "require-dev": {
         "diablomedia/php-cs-fixer-config": "^2.1.0",
