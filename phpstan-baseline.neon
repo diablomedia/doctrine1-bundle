@@ -31,8 +31,13 @@ parameters:
 			path: src/Registry.php
 
 		-
-			message: "#^Cannot access offset string on array\\<Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data\\>\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: "#^Cannot access offset string on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 1
+			path: src/Twig/Doctrine1Extension.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 5
 			path: src/Twig/Doctrine1Extension.php
 
 		-

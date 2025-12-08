@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-use DiabloMedia\PhpCsFixer\Config\RuleSet\Php71;
+use DiabloMedia\PhpCsFixer\Config\RuleSet\Php81;
 use Ergebnis\PhpCsFixer\Config;
 
-$config = Config\Factory::fromRuleSet(new Php71());
-
+$config = Config\Factory::fromRuleSet(Php81::create());
 $config->setCacheFile(__DIR__ . '/.php_cs.cache');
 $config->getFinder()
     ->exclude('vendor')

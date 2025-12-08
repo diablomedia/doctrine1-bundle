@@ -112,7 +112,7 @@ class Doctrine1Extension extends AbstractExtension
     /**
      * Define our functions
      *
-     * @return TwigFilter[]
+     * @return array<TwigFilter>
      */
     public function getFilters(): array
     {
@@ -142,7 +142,7 @@ class Doctrine1Extension extends AbstractExtension
     /**
      * Return a query with the parameters replaced
      *
-     * @param mixed[]|Data $parameters
+     * @param array<mixed>|Data $parameters
      */
     public function replaceQueryParameters(string $query, $parameters): string
     {

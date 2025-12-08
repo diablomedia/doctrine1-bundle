@@ -166,7 +166,7 @@
                                             <td class="nowrap">{{ '%0.2f'|format(query.executionMS * 1000) }}&nbsp;ms</td>
                                         {% endif %}
                                         <td>
-                                            {{ query.sql|doctrine_prettify_sql }}
+                                            {{ query.sql|doctrine1_prettify_sql }}
 
                                             <div>
                                                 <strong class="font-normal text-small">Parameters</strong>: {{ profiler_dump(query.params, 2) }}
@@ -192,14 +192,14 @@
                                             </div>
 
                                             <div id="formatted-query-{{ i }}-{{ loop.parent.loop.index }}" class="sql-runnable hidden">
-                                                {{ query.sql|doctrine_format_sql(highlight = true) }}
-                                                <button class="btn btn-sm hidden" data-clipboard-text="{{ query.sql|doctrine_format_sql(highlight = false)|e('html_attr') }}">Copy</button>
+                                                {{ query.sql|doctrine1_format_sql(highlight = true) }}
+                                                <button class="btn btn-sm hidden" data-clipboard-text="{{ query.sql|doctrine1_format_sql(highlight = false)|e('html_attr') }}">Copy</button>
                                             </div>
 
                                             {% if query.runnable %}
                                                 <div id="original-query-{{ i }}-{{ loop.parent.loop.index }}" class="sql-runnable hidden">
-                                                    {% set runnable_sql = (query.sql ~ ';')|doctrine_replace_query_parameters(query.params) %}
-                                                    {{ runnable_sql|doctrine_prettify_sql }}
+                                                    {% set runnable_sql = (query.sql ~ ';')|doctrine1_replace_query_parameters(query.params) %}
+                                                    {{ runnable_sql|doctrine1_prettify_sql }}
                                                     <button class="btn btn-sm hidden" data-clipboard-text="{{ runnable_sql|e('html_attr') }}">Copy</button>
                                                 </div>
                                             {% endif %}
