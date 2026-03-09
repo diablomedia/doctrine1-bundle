@@ -76,32 +76,6 @@ class Doctrine1Extension extends AbstractExtension
         return $result;
     }
 
-    /**
-     * Formats and/or highlights the given SQL statement.
-     *
-     * @param  bool   $highlightOnly If true the query is not formatted, just highlighted
-     */
-    public function formatQuery(string $sql, bool $highlightOnly = false): string
-    {
-        trigger_deprecation(
-            'doctrine/doctrine-bundle',
-            '2.1',
-            'The "%s()" method is deprecated and will be removed in doctrine-bundle 3.0.',
-            __METHOD__,
-        );
-
-        $this->setUpSqlFormatter(true, true);
-
-        if ($highlightOnly) {
-            return $this->sqlFormatter->highlight($sql);
-        }
-
-        return sprintf(
-            '<div class="highlight highlight-sql"><pre>%s</pre></div>',
-            $this->sqlFormatter->format($sql),
-        );
-    }
-
     public function formatSql(string $sql, bool $highlight): string
     {
         $this->setUpSqlFormatter($highlight);
@@ -117,7 +91,6 @@ class Doctrine1Extension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('doctrine1_pretty_query', [$this, 'formatQuery'], ['is_safe' => ['html'], 'deprecated' => true]),
             new TwigFilter('doctrine1_prettify_sql', [$this, 'prettifySql'], ['is_safe' => ['html']]),
             new TwigFilter('doctrine1_format_sql', [$this, 'formatSql'], ['is_safe' => ['html']]),
             new TwigFilter('doctrine1_replace_query_parameters', [$this, 'replaceQueryParameters']),
