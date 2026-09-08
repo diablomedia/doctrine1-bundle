@@ -123,6 +123,10 @@ class Doctrine1Extension extends AbstractExtension
             $parameters = $parameters->getValue(true);
         }
 
+        if (!is_array($parameters)) {
+            return $query;
+        }
+
         $i = 0;
 
         if (!array_key_exists(0, $parameters) && array_key_exists(1, $parameters)) {
