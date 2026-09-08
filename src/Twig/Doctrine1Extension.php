@@ -99,6 +99,8 @@ class Doctrine1Extension extends AbstractExtension
 
     /**
      * Get the name of the extension
+     *
+     * @psalm-api
      */
     public function getName(): string
     {

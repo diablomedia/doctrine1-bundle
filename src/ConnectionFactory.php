@@ -10,6 +10,7 @@ use PDO;
 
 class ConnectionFactory
 {
+    /** @psalm-api */
     public function createConnection(array $params, ?Configuration $config = null): Doctrine_Connection
     {
         if (isset($params['url'])) {

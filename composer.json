@@ -30,6 +30,7 @@
         "diablomedia/php-cs-fixer-config": "dev-php-85 as 4.0.0",
         "friendsofphp/php-cs-fixer": "^3.91.2",
         "phpstan/phpstan": "2.2.8",
+        "phpunit/phpunit": "^11.5.44",
         "psalm/plugin-symfony": "^5.0.0",
         "symfony/property-info": "^6.0 || ^7.0 || ^8.0",
         "symfony/proxy-manager-bridge": "^6.0 || ^7.0 || ^8.0",
@@ -63,13 +64,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "": "Tests/DependencyInjection"
+            "DiabloMedia\\Bundle\\Doctrine1Bundle\\Tests\\": "Tests"
         }
     },
     "extra": {},
     "scripts": {
         "phpstan": "phpstan --no-progress --ansi --memory-limit=1G",
         "psalm": "psalm",
-        "style-check": "php-cs-fixer fix --dry-run -vv"
+        "style-check": "php-cs-fixer fix --dry-run -vv",
+        "test": "phpunit"
     }
 }

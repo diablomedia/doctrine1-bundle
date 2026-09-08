@@ -23,7 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring
+          extensions: mbstring, dom, xml, xmlwriter
           tools: cs2pr
       - name: Get composer cache directory
         id: composer-cache
@@ -37,6 +37,8 @@ jobs:
       - name: Install Dependencies
         run: |
           composer update --no-progress --no-suggest --prefer-stable --optimize-autoloader ${{ matrix.composer-args }}
+      - name: PHPUnit
+        run: composer test
       - name: PHPStan
         run: composer phpstan
       - name: Psalm
