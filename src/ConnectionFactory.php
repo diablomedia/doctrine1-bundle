@@ -10,7 +10,7 @@ use PDO;
 
 class ConnectionFactory
 {
-    public function createConnection(array $params, Configuration $config = null): Doctrine_Connection
+    public function createConnection(array $params, ?Configuration $config = null): Doctrine_Connection
     {
         if (isset($params['url'])) {
             $conn = Doctrine_Manager::connection(
