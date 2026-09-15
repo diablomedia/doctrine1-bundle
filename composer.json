@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "~8.2 || ~8.3 || ~8.4 || ~8.5",
-        "diablomedia/doctrine1": "dev-php-85 as 1.2.0",
+        "diablomedia/doctrine1": "dev-master as 4.0.0",
         "doctrine/sql-formatter": "^1.0.1",
         "symfony/cache": "^6.0 || ^7.0 || ^8.0",
         "symfony/config": "^6.0 || ^7.0 || ^8.0",
