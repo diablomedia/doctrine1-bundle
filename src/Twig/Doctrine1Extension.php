@@ -99,6 +99,8 @@ class Doctrine1Extension extends AbstractExtension
 
     /**
      * Get the name of the extension
+     *
+     * @psalm-api
      */
     public function getName(): string
     {
@@ -121,6 +123,10 @@ class Doctrine1Extension extends AbstractExtension
     {
         if ($parameters instanceof Data) {
             $parameters = $parameters->getValue(true);
+        }
+
+        if (!is_array($parameters)) {
+            return $query;
         }
 
         $i = 0;

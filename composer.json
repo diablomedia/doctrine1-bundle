@@ -16,32 +16,43 @@
         }
     ],
     "require": {
-        "php": "~8.1 || ~8.2 || ~8.3 || ~8.4",
-        "doctrine/doctrine1": "^1.2.0",
+        "php": "~8.2 || ~8.3 || ~8.4 || ~8.5",
+        "diablomedia/doctrine1": "dev-master as 4.0.0",
         "doctrine/sql-formatter": "^1.0.1",
-        "symfony/cache": "^5.4 || ^6.0 || ^7.0",
-        "symfony/config": "^5.4 || ^6.0 || ^7.0",
-        "symfony/console": "^5.4 || ^6.0 || ^7.0",
-        "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
-        "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
+        "symfony/cache": "^6.0 || ^7.0 || ^8.0",
+        "symfony/config": "^6.0 || ^7.0 || ^8.0",
+        "symfony/console": "^6.0 || ^7.0 || ^8.0",
+        "symfony/dependency-injection": "^6.0 || ^7.0 || ^8.0",
+        "symfony/framework-bundle": "^6.0 || ^7.0 || ^8.0",
         "symfony/service-contracts": "^1.1.1 || ^2.0 || ^3.0"
     },
     "require-dev": {
-        "diablomedia/php-cs-fixer-config": "^4.0.0",
+        "diablomedia/php-cs-fixer-config": "dev-php-85 as 4.0.0",
         "friendsofphp/php-cs-fixer": "^3.91.2",
-        "phpstan/phpstan": "1.11.11",
+        "phpstan/phpstan": "2.2.8",
+        "phpunit/phpunit": "^11.5.44",
         "psalm/plugin-symfony": "^5.0.0",
-        "symfony/property-info": "^4.3.3 || ^5.0 || ^6.0 || ^7.0",
-        "symfony/proxy-manager-bridge": "^5.4 || ^6.0 || ^7.0",
-        "symfony/twig-bridge": "^5.4 || ^6.0 || ^7.0",
-        "symfony/validator": "^5.4 || ^6.0 || ^7.0",
-        "symfony/web-profiler-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
+        "symfony/property-info": "^6.0 || ^7.0 || ^8.0",
+        "symfony/proxy-manager-bridge": "^6.0 || ^7.0 || ^8.0",
+        "symfony/twig-bridge": "^6.0 || ^7.0 || ^8.0",
+        "symfony/validator": "^6.0 || ^7.0 || ^8.0",
+        "symfony/web-profiler-bundle": "^6.0 || ^7.0 || ^8.0",
+        "symfony/yaml": "^6.0 || ^7.0 || ^8.0",
         "twig/twig": "^1.34 || ^2.12 || ^3.0",
-        "vimeo/psalm": "^6.13.1"
+        "vimeo/psalm": "6.14.0"
     },
     "config": {
         "sort-packages": true
+    },
+    "conflict": {
+        "amphp/cache": "<2.0.1",
+        "amphp/dns": "<2.4.1",
+        "amphp/parser": "<1.1.1",
+        "amphp/process": "<2.1.0",
+        "amphp/socket": "<2.4.1",
+        "daverandom/libdns": "<2.1.0",
+        "nikic/php-parser": "<5.7.0",
+        "spatie/array-to-xml": "<3.4.4"
     },
     "suggest": {
         "symfony/web-profiler-bundle": "To use the data collector."
@@ -53,13 +64,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "": "Tests/DependencyInjection"
+            "DiabloMedia\\Bundle\\Doctrine1Bundle\\Tests\\": "Tests"
         }
     },
     "extra": {},
     "scripts": {
-        "phpstan": "phpstan --no-progress --ansi",
+        "phpstan": "phpstan --no-progress --ansi --memory-limit=1G",
         "psalm": "psalm",
-        "style-check": "php-cs-fixer fix --dry-run -vv"
+        "style-check": "php-cs-fixer fix --dry-run -vv",
+        "test": "phpunit"
     }
 }

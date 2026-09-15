@@ -13,23 +13,23 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ["8.1", "8.2", "8.3", "8.4"]
+        php-versions: ["8.2", "8.3", "8.4", "8.5"]
         composer-args: ["", "--prefer-lowest"]
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.36.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring
+          extensions: mbstring, dom, xml, xmlwriter
           tools: cs2pr
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
-        uses: actions/cache@v5.0.3
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: php${{ matrix.php-versions }}-composer-${{ matrix.composer-args }}-${{ hashFiles('**/composer.json') }}
@@ -37,6 +37,8 @@ jobs:
       - name: Install Dependencies
         run: |
           composer update --no-progress --no-suggest --prefer-stable --optimize-autoloader ${{ matrix.composer-args }}
+      - name: PHPUnit
+        run: composer test
       - name: PHPStan
         run: composer phpstan
       - name: Psalm
