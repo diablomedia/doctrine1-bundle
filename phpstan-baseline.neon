@@ -1,47 +1,44 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$adapter of static method Doctrine_Manager\\:\\:connection\\(\\) expects Doctrine_Adapter_Interface\\|PDO\\|null, string given\\.$#"
+			message: '#^Parameter \#1 \$adapter of static method Doctrine_Manager\:\:connection\(\) expects Doctrine_Adapter_Interface\|PDO\|null, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/ConnectionFactory.php
 
 		-
-			message: "#^Call to an undefined method Doctrine_Adapter_Statement\\|PDOStatement\\:\\:fetchAll\\(\\)\\.$#"
+			message: '#^Call to an undefined method Doctrine_Adapter_Statement\|PDOStatement\:\:fetchAll\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: src/Controller/ProfilerController.php
 
 		-
-			message: "#^Result of method Doctrine_Connection\\:\\:getDriverName\\(\\) \\(void\\) is used\\.$#"
+			message: '#^Result of method Doctrine_Connection\:\:getDriverName\(\) \(void\) is used\.$#'
+			identifier: method.void
 			count: 1
 			path: src/Controller/ProfilerController.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			message: '#^Strict comparison using \=\=\= between null and ''Mssql'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
-			path: src/DependencyInjection/Configuration.php
+			path: src/Controller/ProfilerController.php
 
 		-
-			message: "#^Cannot call method scalarNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			message: '#^Strict comparison using \=\=\= between null and ''Sqlite'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
-			path: src/DependencyInjection/Configuration.php
+			path: src/Controller/ProfilerController.php
 
 		-
-			message: "#^Property DiabloMedia\\\\Bundle\\\\Doctrine1Bundle\\\\Registry\\:\\:\\$defaultConnection is never read, only written\\.$#"
+			message: '#^Property DiabloMedia\\Bundle\\Doctrine1Bundle\\Registry\:\:\$defaultConnection is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: src/Registry.php
 
 		-
-			message: "#^Cannot access offset string on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: src/Twig/Doctrine1Extension.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 5
-			path: src/Twig/Doctrine1Extension.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: src/Twig/Doctrine1Extension.php
 
