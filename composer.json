@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "~8.2 || ~8.3 || ~8.4 || ~8.5",
-        "diablomedia/doctrine1": "dev-master as 4.0.0",
+        "diablomedia/doctrine1": "^4.0.0",
         "doctrine/sql-formatter": "^1.0.1",
         "symfony/cache": "^6.0 || ^7.0 || ^8.0",
         "symfony/config": "^6.0 || ^7.0 || ^8.0",
@@ -27,7 +27,7 @@
         "symfony/service-contracts": "^1.1.1 || ^2.0 || ^3.0"
     },
     "require-dev": {
-        "diablomedia/php-cs-fixer-config": "dev-php-85 as 4.0.0",
+        "diablomedia/php-cs-fixer-config": "^5.0.0",
         "friendsofphp/php-cs-fixer": "^3.91.2",
         "phpstan/phpstan": "2.2.8",
         "phpunit/phpunit": "^11.5.44",
