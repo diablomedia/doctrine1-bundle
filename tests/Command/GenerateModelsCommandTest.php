@@ -67,7 +67,7 @@ final class GenerateModelsCommandTest extends TestCase
         $tester      = new CommandTester($command);
         $autoloaders = spl_autoload_functions();
 
-        self::assertSame('doctrine:generate-models', $command->getName());
+        self::assertSame('doctrine1:generate-models', $command->getName());
         self::assertSame(Command::SUCCESS, $tester->execute([]));
         self::assertStringContainsString('Generated models successfully from YAML schema', $tester->getDisplay());
         self::assertSame($autoloaders, spl_autoload_functions());

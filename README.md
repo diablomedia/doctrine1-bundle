@@ -61,7 +61,7 @@ doctrine1:
 Generate Doctrine 1 models from your YAML schema with:
 
 ```sh
-php bin/console doctrine:generate-models
+php bin/console doctrine1:generate-models
 ```
 
 By default, the command reads schemas from `application/doctrine/schema`, writes models to `application/models` (both relative to the project directory), and uses `Doctrine_Record` as the base class. It does not require a database connection.

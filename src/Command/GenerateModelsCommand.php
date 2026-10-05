@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'doctrine:generate-models', description: 'Generates Doctrine 1 models from the YAML schema')]
+#[AsCommand(name: 'doctrine1:generate-models', description: 'Generates Doctrine 1 models from the YAML schema')]
 final class GenerateModelsCommand extends Command
 {
     /** @psalm-api */

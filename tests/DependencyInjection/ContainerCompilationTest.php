@@ -72,7 +72,7 @@ final class ContainerCompilationTest extends TestCase
 
         $loader = $container->get('console.command_loader');
         self::assertInstanceOf(CommandLoaderInterface::class, $loader);
-        self::assertTrue($loader->has('doctrine:generate-models'));
-        self::assertSame('doctrine:generate-models', $loader->get('doctrine:generate-models')->getName());
+        self::assertTrue($loader->has('doctrine1:generate-models'));
+        self::assertSame('doctrine1:generate-models', $loader->get('doctrine1:generate-models')->getName());
     }
 }
