@@ -73,7 +73,7 @@ doctrine1:
     model_generation:
         schema_path: '%kernel.project_dir%/application/doctrine/schema'
         models_path: '%kernel.project_dir%/application/models'
-        base_class: Avt_Record
+        base_class: Custom_Record
 ```
 
 The schema path may point to a YAML file or a directory of schemas. A custom base class must be autoloadable. Doctrine regenerates base models in the output directory's `generated` subdirectory and preserves existing concrete model files.
