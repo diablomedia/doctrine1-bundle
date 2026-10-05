@@ -30,7 +30,7 @@ class Registry
         $this->defaultConnection = $defaultConnection;
     }
 
-    public function getConnection(string $name = null): Doctrine_Connection
+    public function getConnection(?string $name = null): Doctrine_Connection
     {
         return $this->container->get('doctrine1.' . $name . '_connection');
     }
