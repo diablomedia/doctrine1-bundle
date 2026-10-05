@@ -2,6 +2,7 @@
 
 namespace DiabloMedia\Bundle\Doctrine1Bundle\DependencyInjection;
 
+use DiabloMedia\Bundle\Doctrine1Bundle\Command\GenerateModelsCommand;
 use DiabloMedia\Bundle\Doctrine1Bundle\Configuration as ManagerConfiguration;
 use DiabloMedia\Bundle\Doctrine1Bundle\ConnectionFactory;
 use DiabloMedia\Bundle\Doctrine1Bundle\Controller\ProfilerController;
@@ -36,6 +37,14 @@ class Doctrine1Extension extends Extension
 
         $configuration = $this->getConfiguration($configs, $container);
         $config        = $this->processConfiguration($configuration, $configs);
+
+        $container->setDefinition('doctrine1.command.generate_models', new Definition(GenerateModelsCommand::class))
+            ->setArguments([
+                $config['model_generation']['schema_path'],
+                $config['model_generation']['models_path'],
+                $config['model_generation']['base_class'],
+            ])
+            ->addTag('console.command');
 
         if (empty($config['default_connection'])) {
             $keys                         = array_keys($config['connections']);

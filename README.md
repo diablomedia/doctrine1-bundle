@@ -55,3 +55,25 @@ doctrine1:
             enable_query_cache: true
             enable_result_cache: true
 ```
+
+## Generating models
+
+Generate Doctrine 1 models from your YAML schema with:
+
+```sh
+php bin/console doctrine:generate-models
+```
+
+By default, the command reads schemas from `application/doctrine/schema`, writes models to `application/models` (both relative to the project directory), and uses `Doctrine_Record` as the base class. It does not require a database connection.
+
+Customize the paths and base class in `config/packages/doctrine1.yaml`, alongside your connection configuration:
+
+```yaml
+doctrine1:
+    model_generation:
+        schema_path: '%kernel.project_dir%/application/doctrine/schema'
+        models_path: '%kernel.project_dir%/application/models'
+        base_class: Avt_Record
+```
+
+The schema path may point to a YAML file or a directory of schemas. A custom base class must be autoloadable. Doctrine regenerates base models in the output directory's `generated` subdirectory and preserves existing concrete model files.
