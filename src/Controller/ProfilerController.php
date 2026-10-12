@@ -62,7 +62,6 @@ class ProfilerController
 
         $connection = $this->registry->getConnection($connectionName);
         try {
-            /** @var string $platform */
             $platform = $connection->getDriverName();
             if ($platform === 'Sqlite') {
                 $results = $this->explainSQLitePlatform($connection, $query);

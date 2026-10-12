@@ -3,6 +3,7 @@
 namespace DiabloMedia\Bundle\Doctrine1Bundle\DataCollector;
 
 use Doctrine_Connection_Profiler;
+use Override;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -36,10 +37,11 @@ class DoctrineDataCollector extends DataCollector
         $this->loggers[$name] = $logger;
     }
 
+    #[Override]
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?Throwable $exception = null): void
     {
         $queries = [];
 

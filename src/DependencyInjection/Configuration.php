@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
                 )
                 ->then(static function (array $v): array {
                     // Key that should not be rewritten to the connection config
-                    $excludedKeys = ['default_connection' => true, 'hydrators' => true];
+                    $excludedKeys = ['default_connection' => true, 'hydrators' => true, 'model_generation' => true];
                     $connection   = [];
                     foreach ($v as $key => $value) {
                         if (isset($excludedKeys[$key])) {
@@ -52,6 +52,14 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->children()
                 ->scalarNode('default_connection')->end()
+                ->arrayNode('model_generation')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->stringNode('schema_path')->cannotBeEmpty()->defaultValue('%kernel.project_dir%/application/doctrine/schema')->end()
+                        ->stringNode('models_path')->cannotBeEmpty()->defaultValue('%kernel.project_dir%/application/models')->end()
+                        ->stringNode('base_class')->cannotBeEmpty()->defaultValue('Doctrine_Record')->end()
+                    ->end()
+                ->end()
                 ->arrayNode('manager')
                     ->fixXmlConfig('hydrator')
                     ->children()
