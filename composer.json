@@ -55,7 +55,8 @@
         "spatie/array-to-xml": "<3.4.4"
     },
     "suggest": {
-        "symfony/web-profiler-bundle": "To use the data collector."
+        "symfony/web-profiler-bundle": "To use the data collector.",
+        "diablomedia/doctrine1": "Replacement for doctrine/doctrine1 updated to be compatible with recent php versions"
     },
     "autoload": {
         "psr-4": {
