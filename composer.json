@@ -39,7 +39,7 @@
         "symfony/web-profiler-bundle": "^7.0 || ^8.0",
         "symfony/yaml": "^7.0 || ^8.0",
         "twig/twig": "^1.34 || ^2.12 || ^3.0",
-        "vimeo/psalm": "6.14.0"
+        "vimeo/psalm": "6.20.3"
     },
     "config": {
         "sort-packages": true
